@@ -1,0 +1,53 @@
+{
+  "name": "my-first-react-component",
+  "version": "1.0.0",
+  "description": "Learn to build React Components using TDD",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sohonisaurabh/my-first-react-component.git"
+  },
+  "keywords": [
+    "React",
+    "Unit",
+    "Testing",
+    "TDD",
+    "Jest",
+    "Enzyme",
+    "Pagination"
+  ],
+  "author": "Saurabh Sohoni",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sohonisaurabh/my-first-react-component/issues"
+  },
+  "dependencies": {
+    "babel-jest": "^21.2.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "enzyme": "^3.1.0",
+    "enzyme-adapter-react-16": "^1.0.2",
+    "jest": "^21.2.1",
+    "jest-cli": "^21.2.1",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0"
+  },
+  "babel": {
+    "presets": [
+      "react",
+      "es2015"
+    ]
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
+    },
+    "setupFiles": [
+      "./src/setupTests.js"
+    ]
+  },
+  "homepage": "https://github.com/sohonisaurabh/my-first-react-component#readme"
+}
