@@ -4,7 +4,11 @@
   "description": "Learn to build React Components using TDD",
   "main": "index.js",
   "scripts": {
-    "test": "jest --watch"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "jest --watch",
+    "test:unit": "mocha --require babel-core/register --require ./tests-config/helpers.js --require ./tests-config/dom.js \"src/Pagination/Pagination.test.js\"",
+    "test:unit:watch": "npm run test:unit -- --watch"
   },
   "repository": {
     "type": "git",
@@ -17,6 +21,8 @@
     "TDD",
     "Jest",
     "Enzyme",
+    "Mocha",
+    "Chai",
     "Pagination"
   ],
   "author": "Saurabh Sohoni",
@@ -25,29 +31,25 @@
     "url": "https://github.com/sohonisaurabh/my-first-react-component/issues"
   },
   "dependencies": {
-    "babel-jest": "^21.2.0",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-react": "^6.24.1",
-    "enzyme": "^3.1.0",
-    "enzyme-adapter-react-16": "^1.0.2",
-    "jest": "^21.2.1",
-    "jest-cli": "^21.2.1",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0"
-  },
-  "babel": {
-    "presets": [
-      "react",
-      "es2015"
-    ]
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "react-scripts": "1.1.4"
   },
   "jest": {
     "transform": {
       "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
     },
     "setupFiles": [
-      "./src/setupTests.js"
+      "./setupTests.js"
     ]
   },
-  "homepage": "https://github.com/sohonisaurabh/my-first-react-component#readme"
+  "homepage": "https://github.com/sohonisaurabh/my-first-react-component#readme",
+  "devDependencies": {
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "chai": "^4.1.2",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.2.0",
+    "jsdom": "^11.12.0",
+    "mocha": "^5.2.0"
+  }
 }
