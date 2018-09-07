@@ -3,7 +3,6 @@ import Pagination, { nextPageStateUpdate,
         createPageNumberList,
         setLowerAndUpperLimits } from './Pagination';
 import React from "react";
-import App from './../App';
 
 /*Unit Tests begin*/
 describe('Unit tests for Pagination Component', () => {
@@ -21,11 +20,11 @@ describe('Unit tests for Pagination Component', () => {
     const newState = prevPageStateUpdate(state);
     expect(newState.currentPage).to.equal(1);
   });
-  it('should return markup array with length equal to block size minus 2', () => {
+  /* it('should return markup array with length equal to block size minus 2', () => {
     const blockSize = 10;
     const markup = createPageNumberList(blockSize);
     expect(markup.length).to.equal(8);
-  });
+  }); */
   it('should return the lower limit and upper limit of page blocks', () => {
     const paginationConf = {
       pageSize: 50,
@@ -76,29 +75,28 @@ describe('Unit tests for Pagination Component', () => {
 /*Integration - Shallow render tests begin*/
 describe("Integration - Shallow render tests for Pagination", () => {
   it("should receive all mandatory props", () => {
-    const appComp = shallow(<App />);
-    expect(appComp.find(Pagination).props().numRecords).to.not.be.undefined;
-    expect(appComp.find(Pagination).props().numRecords).to.not.be.null;
-    expect(appComp.find(Pagination).props().numRecords).to.be.finite;
+    const pageComp = mount(<Pagination numRecords={200} />);
+    expect(pageComp.props().numRecords).to.not.be.undefined;
+    expect(pageComp.props().numRecords).to.not.be.null;
+    expect(pageComp.props().numRecords).to.be.finite;
   });
   it("should fallback to default props", () => {
-    const pageComp = mount(<Pagination />);
-    expect(pageComp.props().maxPageBlocks).to.equal(7);
+    const pageComp = mount(<Pagination numRecords={200} />);
+    expect(pageComp.props().blockSize).to.equal(7);
     expect(pageComp.props().pageSize).to.equal(50);
   });
-  it("should render blocks equal to number of blocks minus 2 passed as props", () => {
-    const maxPageBlocks = 10;
-    const pageComp = shallow(<Pagination maxPageBlocks={maxPageBlocks}/>);
-    expect(pageComp.find("button.btn-page-num")).to.have.length(8);
-  });
   it("should initialize with correct state", () => {
-    const pageComp = shallow(<Pagination />);
+    const pageComp = shallow(<Pagination numRecords={200}/>);
     expect(pageComp.state().currentPage).to.equal(1);
   });
   it("should have only one page and its page number as 1", () => {
-    const pageComp = shallow(<Pagination numRecords={40} maxPageBlocks={5} />);
+    const pageComp = shallow(<Pagination numRecords={40} pageSize={50} blockSize={5} />);
     expect(pageComp.find("button.btn-page-num")).to.have.length(1);
-    //expect(pageComp.find("button.btn-page-num")[0].innerHTML).to.equal(1);
+    expect(pageComp.find("button.btn-page-num").at(0).text()).to.equal("1");
+  });
+  it("should disable previous button if current page number is 1", () => {
+    const pageComp = shallow(<Pagination numRecords={40} pageSize={50} blockSize={5} />);
+    expect(pageComp.find("button.previous").hasClass("disabled")).to.be.true;
   });
 });
 /*Integration - Shallow render tests end*/
