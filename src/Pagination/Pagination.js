@@ -23,6 +23,9 @@ const buttonStyle = css`
   cursor: pointer;
   margin: 20px 1em;
 `;
+const buttonContainer = css`
+  display: inline-block;
+`;
 const disabled = css`
   cursor: default;
   background: #e0cccc;
@@ -66,7 +69,8 @@ export const createPageNumberList = paginationConf => {
   let markupArr = [];
   let {lowerLimit: lLimit, upperLimit: uLimit} = setLowerAndUpperLimits(paginationConf);
   for (let index = 0; index < uLimit; index += 1) {
-    const element = <button className={'btn-page-num ' + buttonStyle}>{index + 1}</button>;
+    const element = <button key={index} className={'btn btn-page-num ' + buttonStyle}>
+      {index + 1}</button>;
     markupArr.push(element);
   }
   return markupArr;
@@ -108,6 +112,7 @@ class Pagination extends React.PureComponent {
     this.nextPage = this.nextPage.bind(this);
     this.prevPage = this.prevPage.bind(this);
     this.createPageBlocks = this.createPageBlocks.bind(this);
+    this.changePage = this.changePage.bind(this);
   }
 
   componentWillMount() {
@@ -124,6 +129,10 @@ class Pagination extends React.PureComponent {
     if (currentPage === 1) {
       this.setState({
         disablePrev: true
+      });
+    } else {
+      this.setState({
+        disablePrev: false
       });
     }
   }
@@ -143,16 +152,25 @@ class Pagination extends React.PureComponent {
       blockSize: this.props.blockSize
     });
   }
+  changePage(event) {
+    if (event.target.classList.contains("btn")) {
+      this.setState({
+        currentPage: parseInt(event.target.innerText)
+      });
+    }
+  }
 
   render() {
 
     return (
       <div>
         <div>
-          <button onClick={this.prevPage} className={buttonStyle + ' previous ' + 
+          <button onClick={this.prevPage} className={'btn ' + buttonStyle + ' previous ' + 
           (this.state.disablePrev ? disabled + ' disabled' : '')}>Previous</button>
-          {this.createPageBlocks()}
-          <button onClick={this.nextPage} className={buttonStyle + ' next ' + 
+          <div onClick={(e) => this.changePage(e)} className={buttonContainer}>
+            {this.createPageBlocks()}
+          </div>
+          <button onClick={this.nextPage} className={'btn ' + buttonStyle + ' next ' + 
           (this.state.disableNext ? disabled + ' disabled' : '')}>Next</button>
         </div>
         <p>Current page is: {this.state.currentPage}</p>

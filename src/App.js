@@ -9,7 +9,7 @@ const container = css`
   background: aliceblue;
   height: 200px;
   text-align: center;
-  margin: 0 0 0 1em;
+  margin: 20px 0 0 1em;
 `;
 
 class App extends Component {
