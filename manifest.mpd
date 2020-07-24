@@ -80,7 +80,7 @@
             startNumber="1">
         </SegmentTemplate>
       <Representation
-          id="ff4-v1-x3"
+          id="f4-v1-x3"
           mimeType="audio/mp4"
           codecs="mp4a.40.2"
           audioSamplingRate="48000"
